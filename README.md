@@ -1,3 +1,20 @@
+# Moodle Content Personalization
+This plugin is a contribution to Moodle plugin « Point of View » which is explained later. It adds some features like the ability t
+add content tags to user interest_tags.
+
+# Installation
+Installation of this plugin, like any other Moodle plugin, is just as simple as dropping the zip file of this project to Moodle install plugin drag and drop window.
+After successful installation, all you need to do is adding a new field to user profile fields through:
+Site administration --> Users --> User profile fields. Create a new profile field with type Text input and Name and Short name equivalent to "interest_tags". You can customize this field to either be visible to users or not, by setting "Who is this field visible to?" field.
+
+# Usage
+Teachers or content providers can simply tag contents through Moodle tags, which they can set when setting content names and options. They also can simply restrict access to content for student with special tags using 
+"Restrict Access" option. In order to restrict access using "interest_tags",
+ the teacher must add restriction and selecting user profile fields, then user profile field must set to "interest_tags". The rest is configurable by teacher.  For instance, the teacher adds a restriction with following specs:
+ "User Profile Field "interest_tags" "contains" "test_tag"" which hides the content from students who are not interested in "test_tag".
+ 
+
+
 # Moodle plugin « Point of View »
 
 *Quentin Fombaron - November 28<SUP>th</SUP> 2018*<br />

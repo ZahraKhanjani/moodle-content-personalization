@@ -110,32 +110,35 @@ class block_point_view_external extends external_api
         $user = profile_user_record($userid);
         $interest_tags = $user->interest_tags;
 
-        $interest_tags_array = explode(',', $interest_tags);
+
+        $interest_tags_array = json_decode($interest_tags, true);
 
         $final_tags = [];
 
-        foreach ($interest_tags_array as $interest_tags_item) {
-            $final_tags[$interest_tags_item] = $interest_tags_item;
+        foreach ($interest_tags_array as $interest_tags_item => $value) {
+            $final_tags[$interest_tags_item] = $value;
         }
 
-        if($vote==3)
-        {
+        if ($vote == 3) {
             //dislike
 
             foreach ($item_tags as $item_tag_item) {
-                unset($final_tags[$item_tag_item]);
+                if (isset($final_tags[$item_tag_item])) {
+                    if ($final_tags[$item_tag_item] - 1 > 0)
+                        $final_tags[$item_tag_item] = $final_tags[$item_tag_item] - 1;
+                    else
+                        unset($final_tags[$item_tag_item]);
+                }
             }
-        }
-        elseif($vote==2)
-        {
+        } elseif ($vote == 2) {
             //like
             foreach ($item_tags as $item_tag_item) {
-                $final_tags[$item_tag_item] = $item_tag_item;
+                $final_tags[$item_tag_item] = ($final_tags[$item_tag_item]? $final_tags[$item_tag_item] : 0)+1;
             }
         }
 
 
-        $interest_tags = implode(',', $final_tags);
+        $interest_tags = json_encode($final_tags);
 
         profile_save_custom_fields($userid, [
             'interest_tags' => $interest_tags
